@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/posts', 'PostController@index');
+
+Route::post('/like', 'LikeController@store')->middleware('auth');
