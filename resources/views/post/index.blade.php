@@ -11,8 +11,10 @@
                     <p class="card-text">{{ $post->content }}</p>
                     <form action="/like" method="POST">
                         @csrf
-                        <input type="hidden" name="postid">
-                        <button class="btn btn-primary">Like</button>
+                        <input type="hidden" name="postid" value="{{ $post->id }}">
+                        <button class="btn {{ auth()->check() && auth()->user()->hasLike() ? 'btn-primary' : 'btn-secondary' }}">
+                            {{ $post->likes()->count() }} Like
+                        </button>
                     </form>
                 </div>
             </div>
