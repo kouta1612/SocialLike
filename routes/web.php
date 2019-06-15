@@ -15,7 +15,8 @@ Route::get('/', 'PostController@index');
 
 Route::get('/posts', 'PostController@index');
 
-Route::post('/like', 'LikeController@store')->middleware('auth');
+Route::post('/like/{post}', 'LikeController@store');
+Route::delete('/like/{post}', 'LikeController@destroy');
 
 Auth::routes();
 
