@@ -17,12 +17,10 @@ class LikeController extends Controller
     public function store(Post $post)
     {
         $post->like();
-        return back();
     }
 
     public function destroy(Post $post)
     {
         $post->unlike();
-        return back();
     }
 }
