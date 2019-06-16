@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        @foreach($posts as $post)
+        @foreach($articles as $article)
             <div class="card mb-3">
                 <div class="card-header">
-                    {{ $post->user->name }} posted.
+                    {{ $article->user->name }} posted.
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ $post->title }}</h5>
-                    <p class="card-text">{{ $post->content }}</p>
-                    <button type="button" data-like="{{ $post->like }}" data-post="{{ $post->id }}" class="btn {{ $post->like ? 'btn-primary' : 'btn-secondary' }}">
-                        <span data-count="{{ $post->likes_count }}">{{ $post->likes_count }}</span> Like
+                    <h5 class="card-title">{{ $article->title }}</h5>
+                    <p class="card-text">{{ $article->content }}</p>
+                    <button type="button" data-like="{{ $article->like }}" data-article="{{ $article->id }}" class="btn {{ $article->like ? 'btn-primary' : 'btn-secondary' }}">
+                        <span data-count="{{ $article->likes_count }}">{{ $article->likes_count }}</span> Like
                     </button>
                 </div>
             </div>
@@ -31,7 +31,7 @@
         });
 
         function like(e) {
-            axios.post(`/like/post/${e.target.dataset.post}`)
+            axios.post(`/like/article/${e.target.dataset.article}`)
                 .then(
                     e.target.dataset.like = true,
                     e.target.classList.remove('btn-secondary'),
@@ -41,7 +41,7 @@
         }
 
         function unlike(e) {
-            axios.delete(`/like/post/${e.target.dataset.post}`)
+            axios.delete(`/like/article/${e.target.dataset.article}`)
                 .then(
                     e.target.dataset.like = "",
                     e.target.classList.remove('btn-primary'),

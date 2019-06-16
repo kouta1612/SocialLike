@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Like;
-use Illuminate\Support\Facades\Auth;
 use App\Post;
 
-class LikeController extends Controller
+class LikePostController extends Controller
 {
     public function __construct()
     {
