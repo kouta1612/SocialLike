@@ -24,29 +24,29 @@
             e.preventDefault();
             let isLike = e.target.dataset.like;
             if (isLike) {
-                unlike(e);
+                unlike(e.target);
                 return;
             }
-            like(e);
+            like(e.target);
         });
 
-        function like(e) {
-            axios.post(`/like/article/${e.target.dataset.article}`)
+        function like(target) {
+            axios.post(`/like/article/${target.dataset.article}`)
                 .then(
-                    e.target.dataset.like = true,
-                    e.target.classList.remove('btn-secondary'),
-                    e.target.classList.add('btn-primary'),
-                    e.target.firstElementChild.innerText++,
+                    target.dataset.like = true,
+                    target.classList.remove('btn-secondary'),
+                    target.classList.add('btn-primary'),
+                    target.firstElementChild.innerText++,
                 );
         }
 
-        function unlike(e) {
-            axios.delete(`/like/article/${e.target.dataset.article}`)
+        function unlike(target) {
+            axios.delete(`/like/article/${target.dataset.article}`)
                 .then(
-                    e.target.dataset.like = "",
-                    e.target.classList.remove('btn-primary'),
-                    e.target.classList.add('btn-secondary'),
-                    e.target.firstElementChild.innerText--,
+                    target.dataset.like = "",
+                    target.classList.remove('btn-primary'),
+                    target.classList.add('btn-secondary'),
+                    target.firstElementChild.innerText--,
                 );
         }
     </script>

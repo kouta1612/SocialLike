@@ -1,20 +1,22 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        @foreach($posts as $post)
-            <div class="card mb-3">
-                <div class="card-header">
-                    {{ $post->user->name }} posted.
+        <div>
+            @foreach($posts as $post)
+                <div class="card mb-3">
+                    <div class="card-header">
+                        {{ $post->user->name }} posted.
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $post->title }}</h5>
+                        <p class="card-text">{{ $post->content }}</p>
+                        <button type="button" data-like="{{ $post->like }}" data-post="{{ $post->id }}" class="btn {{ $post->like ? 'btn-primary' : 'btn-secondary' }}">
+                            <span data-count="{{ $post->likes_count }}">{{ $post->likes_count }}</span> Like
+                        </button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $post->title }}</h5>
-                    <p class="card-text">{{ $post->content }}</p>
-                    <button type="button" data-like="{{ $post->like }}" data-post="{{ $post->id }}" class="btn {{ $post->like ? 'btn-primary' : 'btn-secondary' }}">
-                        <span data-count="{{ $post->likes_count }}">{{ $post->likes_count }}</span> Like
-                    </button>
-                </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 @endsection
 
@@ -23,30 +25,31 @@
         $('button').on('click', function (e) {
             e.preventDefault();
             let isLike = e.target.dataset.like;
+            
             if (isLike) {
-                unlike(e);
+                unlike(e.target);
                 return;
             }
-            like(e);
+            like(e.target);
         });
 
-        function like(e) {
-            axios.post(`/like/post/${e.target.dataset.post}`)
+        function like(target) {
+            axios.post(`/like/post/${target.dataset.post}`)
                 .then(
-                    e.target.dataset.like = true,
-                    e.target.classList.remove('btn-secondary'),
-                    e.target.classList.add('btn-primary'),
-                    e.target.firstElementChild.innerText++,
-                );
+                    target.dataset.like = true,
+                    target.classList.remove('btn-secondary'),
+                    target.classList.add('btn-primary'),
+                    target.firstElementChild.innerText++,
+                )
         }
 
-        function unlike(e) {
-            axios.delete(`/like/post/${e.target.dataset.post}`)
+        function unlike(target) {
+            axios.delete(`/like/post/${target.dataset.post}`)
                 .then(
-                    e.target.dataset.like = "",
-                    e.target.classList.remove('btn-primary'),
-                    e.target.classList.add('btn-secondary'),
-                    e.target.firstElementChild.innerText--,
+                    target.dataset.like = "",
+                    target.classList.remove('btn-primary'),
+                    target.classList.add('btn-secondary'),
+                    target.firstElementChild.innerText--,
                 );
         }
     </script>

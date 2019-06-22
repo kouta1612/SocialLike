@@ -16,11 +16,8 @@ Route::get('/', 'PostController@index');
 Route::get('/posts', 'PostController@index');
 Route::get('/articles', 'ArticleController@index');
 
-Route::post('/like/article/{article}', 'LikeArticleController@store');
-Route::delete('/like/article/{article}', 'LikeArticleController@destroy');
-
-Route::post('/like/post/{post}', 'LikePostController@store');
-Route::delete('/like/post/{post}', 'LikePostController@destroy');
+Route::post('/like/{type}/{id}', 'LikeController@store');
+Route::delete('/like/{type}/{id}', 'LikeController@destroy');
 
 Auth::routes();
 
