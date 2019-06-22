@@ -3,9 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Article;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use App\Post;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +12,9 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
-    { }
+    {
+        //
+    }
 
     /**
      * Bootstrap any application services.
@@ -24,9 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Relation::morphMap([
-            'article' => Article::class,
-            'post' => Post::class,
-        ]);
+        //
     }
 }

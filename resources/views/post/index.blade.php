@@ -24,32 +24,31 @@
     <script>
         $('button').on('click', function (e) {
             e.preventDefault();
-            let isLike = e.target.dataset.like;
-            
+            let isLike = $(this).data('like');
             if (isLike) {
-                unlike(e.target);
+                unlike($(this));
                 return;
             }
-            like(e.target);
+            like($(this));
         });
 
         function like(target) {
-            axios.post(`/like/post/${target.dataset.post}`)
+            axios.post(`/like/post/${target.data('post')}`)
                 .then(
-                    target.dataset.like = true,
-                    target.classList.remove('btn-secondary'),
-                    target.classList.add('btn-primary'),
-                    target.firstElementChild.innerText++,
-                )
+                    target.data('like', true),
+                    target.removeClass('btn-secondary'),
+                    target.addClass('btn-primary'),
+                    target.find('span').text(parseInt(target.find('span').text()) + 1),
+                );
         }
 
         function unlike(target) {
-            axios.delete(`/like/post/${target.dataset.post}`)
+            axios.delete(`/like/post/${target.data('post')}`)
                 .then(
-                    target.dataset.like = "",
-                    target.classList.remove('btn-primary'),
-                    target.classList.add('btn-secondary'),
-                    target.firstElementChild.innerText--,
+                    target.data('like', ""),
+                    target.removeClass('btn-primary'),
+                    target.addClass('btn-secondary'),
+                    target.find('span').text(parseInt(target.find('span').text()) - 1),
                 );
         }
     </script>
